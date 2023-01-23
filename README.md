@@ -7,6 +7,17 @@ potencial requirements:
 - ninja
 - Graphviz 
 
+how to:
+  1. install
+    cmake -S . -B build/ 
+    - cmake --build <build_directory> --target install --config <desired_config>
+  2. build
+    - cmake -S . -B build/  -DProject_BUILD_EXECUTABLE:BOOL=ON
+    - cmake --build build
+  3. remove installed
+    - sudo xargs rm < build/install_manifest.txt
+
+
 TODO:
   * change exec-lib logic
   * improve test cmake
