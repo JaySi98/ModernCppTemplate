@@ -19,10 +19,13 @@ how to:
 
 
 TODO:
-  * change exec-lib logic
-  * improve test cmake
   * add missing files 
-  * set readme
+  * improve test cmake
   * change clang-format 
   * add cpm
   * add popular libs as optional
+  * set readme
+
+TEST:
+  * add private library and test on current project
+  * add standalone folder and test if find_package will work
