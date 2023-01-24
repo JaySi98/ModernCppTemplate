@@ -21,11 +21,9 @@ how to:
 TODO:
   * add missing files 
   * improve test cmake
-  * change clang-format 
   * add cpm
   * add popular libs as optional
   * set readme
 
 TEST:
   * add private library and test on current project
-  * add standalone folder and test if find_package will work
