@@ -28,6 +28,10 @@ cmake -S . -B build/ -DBUILD_EXECUTABLE=ON
 cmake --build build 
 3. remove installed 
 sudo xargs rm < build/install_manifest.txt 
+4. generate documentation
+cmake .. -DENABLE_DOXYGEN=1
+cmake --build . --target doxygen-docs
+xdg-open docs/html/index.html 
 
 ## TODO 
 * add missing files 
