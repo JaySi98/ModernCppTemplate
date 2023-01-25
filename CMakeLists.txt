@@ -16,8 +16,9 @@ endif()
 # ===========================
 
 # include(cmake/staticAnalyzers.cmake)
-# include(cmake/conan.cmake)
-# include(cmake/vcpkg.cmake)
+include(cmake/conan.cmake)
+include(cmake/doxygen.cmake)
+include(cmake/vcpkg.cmake)
 include(cmake/compiler.cmake)
 include(cmake/settings.cmake)
 include(cmake/utils.cmake)
