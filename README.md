@@ -34,11 +34,15 @@ cmake --build . --target doxygen-docs
 xdg-open docs/html/index.html 
 
 ## TODO 
-* add missing files 
+* correct workflows 
+* test formating 
+* test analyzers
 * improve test cmake 
+* set readme 
+
 * add cpm 
 * add popular libs as optional 
-* set readme 
+
 For later:
 * add version for ansi C 
 * add version for QT 
