@@ -14,8 +14,12 @@ This project is mostly a combination of other templates listed below:
 In order to be able to work with this template, you will need: 
 * CMake - version 3.15 and above 
 * C++ Compiler - must support C++ 17 standard 
-* Graphviz - for Docker and ability to generate docs 
+* Doxygen - for ability to generate docs
+sudo apt-get install doxygen doxygen-doc graphviz 
 
+* clang-tidy
+* clang-format
+* cppcheck
 ## Getting Started 
 
 ## Commands 
@@ -34,12 +38,12 @@ cmake --build . --target doxygen-docs
 xdg-open docs/html/index.html 
 
 ## TODO 
-* correct workflows 
-* test formating 
-* test analyzers
 * improve test cmake 
+* correct workflows 
+* add automatic formating
+* add tools directory
 * set readme 
-
+* test CI/CD
 * add cpm 
 * add popular libs as optional 
 
