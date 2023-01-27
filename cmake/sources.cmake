@@ -12,6 +12,6 @@ set(EXE_SOURCES
 )
 
 # inside test directory
-# set(test_sources
-#   src/tmp_test.cpp
-# )
+set(test_sources
+  src/tmp_test.cpp
+)
