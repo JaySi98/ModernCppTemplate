@@ -11,9 +11,9 @@ option(ENABLE_CONAN "Enable the Conan package manager for this project." OFF)
 option(ENABLE_VCPKG "Enable the Vcpkg package manager for this project." OFF)
 
 # Unit testing options(GoogleTest, Catch2)
-option(ENABLE_UNIT_TESTING  "Enable unit tests for the projects (from the `test` subfolder)." OFF)
-option(USE_GTEST            "Use the GoogleTest project for creating unit tests."             OFF)
-option(USE_GOOGLE_MOCK      "Use the GoogleMock project for extending the unit tests."        OFF)
+option(ENABLE_UNIT_TESTING  "Enable unit tests for the projects (from the `test` subfolder)." ON)
+option(USE_GTEST            "Use the GoogleTest project for creating unit tests."             ON)
+option(USE_GOOGLE_MOCK      "Use the GoogleMock project for extending the unit tests."        ON)
 option(USE_CATCH2           "Use the Catch2 project for creating unit tests."                 OFF)
 
 # Static analyzers options(Clang-Tidy, Cppcheck)
@@ -21,7 +21,7 @@ option(ENABLE_CLANG_TIDY    "Enable static analysis with Clang-Tidy." OFF)
 option(ENABLE_CPPCHECK      "Enable static analysis with Cppcheck."   OFF)
 
 # Code coverage options
-option(ENABLE_CODE_COVERAGE "Enable code coverage through GCC."       OFF)
+option(ENABLE_CODE_COVERAGE "Enable code coverage through GCC."       ON)
 
 # Doxygen
 option(ENABLE_DOXYGEN       "Enable Doxygen documentation builds of source." OFF)

@@ -8,6 +8,9 @@ This project is mostly a combination of other templates listed below:
 * https://github.com/TheLartians/ModernCppStarter 
 * https://github.com/pabloariasal/modern-cmake-sample 
 
+
+* https://www.labri.fr/perso/fleury/posts/programming/using-clang-tidy-and-clang-format.html
+* https://github.com/StableCoder/cmake-scripts#sanitizer-builds-sanitizerscmake
 ## Features 
 
 ## Requirements 
@@ -39,15 +42,13 @@ xdg-open docs/html/index.html
 
 ## TODO 
 * improve test cmake 
-* correct workflows 
 * add automatic formating
 * add tools directory
-* set readme 
-* test CI/CD
+* set readme
 * add cpm 
-* add popular libs as optional 
 
 For later:
+* add popular libs as optional 
 * add version for ansi C 
 * add version for QT 
 * add version for STM 

@@ -1,6 +1,5 @@
-#include "project/tmp.hpp"
-
 #include <gtest/gtest.h>
+#include <tmp/tmp.hpp>
 
 TEST(TmpAddTest, CheckValues)
 {
