@@ -40,9 +40,8 @@ cmake .. -DENABLE_DOXYGEN=1
 cmake --build . --target doxygen-docs
 xdg-open docs/html/index.html 
 
-## TODO 
-* improve test cmake 
-* add automatic formating
+## TODO
+* add automatic formating(2 links in readme)
 * add tools directory
 * set readme
 * add cpm 
