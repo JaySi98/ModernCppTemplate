@@ -13,9 +13,8 @@ option(ENABLE_VCPKG "Enable the Vcpkg package manager for this project." OFF)
 # Unit testing using GoogleTest and GoogleMock
 option(ENABLE_UNIT_TESTING  "Enable unit tests for the projects (from the `test` subfolder)." ON)
 
-# Static analyzers options(Clang-Tidy, Cppcheck)
+# Static analyzer Clang-Tidy
 option(ENABLE_CLANG_TIDY    "Enable static analysis with Clang-Tidy." OFF)
-option(ENABLE_CPPCHECK      "Enable static analysis with Cppcheck."   OFF)
 
 # Code coverage options
 option(ENABLE_CODE_COVERAGE "Enable code coverage through GCC."       ON)

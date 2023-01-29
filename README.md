@@ -39,6 +39,11 @@ sudo xargs rm < build/install_manifest.txt
 cmake .. -DENABLE_DOXYGEN=1
 cmake --build . --target doxygen-docs
 xdg-open docs/html/index.html 
+5. run tests
+build
+./build/test/UnitTests
+cd build && ctest -C -VV Debug
+6. clangs
 
 ## TODO
 * add automatic formating(2 links in readme)
