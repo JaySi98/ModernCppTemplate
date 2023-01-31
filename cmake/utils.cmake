@@ -1,29 +1,28 @@
 # Add a target for formating the project using `clang-format`
 function(add_clang_format_target)
-    if(NOT CLANG_FORMAT_BINARY)
-        find_program(CLANG_FORMAT_BINARY clang-format)
+    if(NOT CLANG_FORMAT)
+        find_program(CLANG_FORMAT clang-format)
     endif()
 
-    if(CLANG_FORMAT_BINARY)
+    if(CLANG_FORMAT)
         if(BUILD_EXECUTABLE)
             add_custom_target(clang-format
-                COMMAND ${CLANG_FORMAT_BINARY}
-                -i 
-                ${exe_sources} ${headers}
+                COMMAND ${CLANG_FORMAT}
+                -i ${EXE_SOURCES} ${HEADERS}
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
             )
         elseif(BUILD_HEADERS_ONLY)
             add_custom_target(clang-format
-                COMMAND ${CLANG_FORMAT_BINARY}
+                COMMAND ${CLANG_FORMAT}
                 -i 
-                ${headers}
+                ${HEADERS}
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
             )
         else()
             add_custom_target(clang-format
-                COMMAND ${CLANG_FORMAT_BINARY}
+                COMMAND ${CLANG_FORMAT}
                 -i 
-                ${sources} ${headers}
+                ${SOURCES} ${HEADERS}
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
             )
         endif()

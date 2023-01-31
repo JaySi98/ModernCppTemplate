@@ -19,6 +19,8 @@ In order to be able to work with this template, you will need:
 * C++ Compiler - must support C++ 17 standard 
 * Doxygen - for ability to generate docs
 sudo apt-get install doxygen doxygen-doc graphviz 
+* googleTest
+https://stackoverflow.com/questions/49736336/cmake-is-unable-to-find-packages-of-gmock
 
 * clang-tidy
 * clang-format
@@ -43,10 +45,15 @@ xdg-open docs/html/index.html
 build
 ./build/test/UnitTests
 cd build && ctest -C -VV Debug
-6. clangs
+6. format code
+cmake --build build/ --target clang-format
+7. dependency graph
+cmake --build build --target graph
 
 ## TODO
-* add automatic formating(2 links in readme)
+* correct clang-format and clang-tidy
+* add sanitizers
+* add dependency graph as a part of doxygen
 * add tools directory
 * set readme
 * add cpm 
