@@ -192,8 +192,9 @@ message(STATUS "Project is now aliased as ${PROJECT_NAME}::${PROJECT_NAME}.\n")
 # Format the project using the `clang-format` target 
 # (i.e: cmake --build build --target clang-format)
 # ===========================
-add_clang_format_target()
-
+if(ENABLE_CLANG_FORMAT)
+    add_clang_format_target()
+endif()
 
 # ===========================
 # Installation
