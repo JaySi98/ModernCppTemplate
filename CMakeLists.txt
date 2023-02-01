@@ -22,6 +22,7 @@ include(cmake/settings.cmake)
 include(cmake/utils.cmake)
 include(cmake/sources.cmake)
 include(cmake/sanitizers.cmake)
+include(cmake/code-coverage.cmake)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")
@@ -205,10 +206,17 @@ message(STATUS "Project is now aliased as ${PROJECT_NAME}::${PROJECT_NAME}.\n")
 
 # ===========================
 # Format the project using the `clang-format` target 
-# (i.e: cmake --build build --target clang-format)
 # ===========================
 if(ENABLE_CLANG_FORMAT)
     add_clang_format_target()
+endif()
+
+# ===========================
+# Code coverage
+# ===========================
+if(ENABLE_CODE_COVERAGE)
+    add_code_coverage_all_targets(EXCLUDE test/*) 
+    target_code_coverage(${PROJECT_NAME})
 endif()
 
 # ===========================
