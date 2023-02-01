@@ -40,4 +40,4 @@ gtest_discover_tests(UnitTests)
 # 	message(STATUS "Code coverage is enabled and provided with GCC.")
 # endif()
 
-message(STATUS "Finished adding unit tests for ${CMAKE_PROJECT_NAME}.")
+message(STATUS "Finished adding unit tests for ${CMAKE_PROJECT_NAME}.\n")

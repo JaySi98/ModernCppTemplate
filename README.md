@@ -51,9 +51,7 @@ cmake --build build/ --target clang-format
 cmake --build build --target graph
 
 ## TODO
-* correct sanitizers
 * correct codecoverage
-* unionise messages
 * add dependency graph as a part of doxygen
 * add tools directory
 * set readme

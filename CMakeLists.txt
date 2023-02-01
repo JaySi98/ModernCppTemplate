@@ -28,6 +28,20 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Started CMake for ${PROJECT_NAME} v${PROJECT_VERSION}...\n")
 
+# Set the compiler standard to C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+if(MSVC_VERSION GREATER_EQUAL "1900" AND CMAKE_VERSION LESS 3.10)
+    include(CheckCXXCompilerFlag)
+    check_cxx_compiler_flag("/std:c++17" _cpp_latest_flag_supported)
+    if(_cpp_latest_flag_supported)
+        add_compile_options("/std:c++17")
+    endif()
+endif()
+
+
 # ===========================
 # adding exec/lib
 # ===========================
@@ -109,7 +123,7 @@ else()
 endif()
 set_project_warnings(${PROJECT_NAME})
 
-message(STATUS "Applied compiler warnings. Using standard ${CMAKE_CXX_STANDARD}.\n")
+message(STATUS "Applied compiler warnings. Using standard C++${CMAKE_CXX_STANDARD}.\n")
 
 # ===========================
 # Project dependencies
@@ -138,7 +152,7 @@ message(STATUS "Applied compiler warnings. Using standard ${CMAKE_CXX_STANDARD}.
 # On Linux and Mac this variable is ignored. 
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
-message(STATUS "Successfully added all dependencies and linked against them.")
+message(STATUS "Successfully added all dependencies and linked against them.\n")
 
 
 # ===========================
@@ -175,7 +189,7 @@ else()
     endif()
 endif()
 
-message(STATUS "Finished setting up include directories.")
+message(STATUS "Finished setting up include directories.\n")
 
 # ===========================
 # Provide alias to library
@@ -252,7 +266,7 @@ install(
     include
 )
 
-message(STATUS "Install targets successfully built. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
+message(STATUS "Install targets successfully built.\n")
 
 # Quick `ConfigVersion.cmake` creation
 include(CMakePackageConfigHelpers)
@@ -287,6 +301,5 @@ message(STATUS "Finished building requirements for installing the package.\n")
 
 if(ENABLE_UNIT_TESTING)
     enable_testing()
-    message(STATUS "Build unit tests for the project. Tests should always be found in the test folder\n")
     add_subdirectory(test)
 endif()

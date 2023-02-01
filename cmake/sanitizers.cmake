@@ -30,7 +30,6 @@ if(USE_SANITIZER)
 
         if(USE_SANITIZER MATCHES "([Aa]ddress)")
             # Optional: -fno-optimize-sibling-calls -fsanitize-address-use-after-scope
-            message(STATUS "Testing with Address sanitizer")
             set(SANITIZER_ADDR_FLAG "-fsanitize=address")
             test_san_flags(SANITIZER_ADDR_AVAILABLE ${SANITIZER_ADDR_FLAG})
             if(SANITIZER_ADDR_AVAILABLE)
@@ -45,7 +44,6 @@ if(USE_SANITIZER)
             # Optional: -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2
             set(SANITIZER_MEM_FLAG "-fsanitize=memory")
             if(USE_SANITIZER MATCHES "([Mm]emory[Ww]ith[Oo]rigins)")
-                message(STATUS "Testing with MemoryWithOrigins sanitizer")
                 append("-fsanitize-memory-track-origins" SANITIZER_MEM_FLAG)
             else()
                 message(STATUS "Testing with Memory sanitizer")
@@ -67,7 +65,6 @@ if(USE_SANITIZER)
         endif()
 
         if(USE_SANITIZER MATCHES "([Uu]ndefined)")
-            message(STATUS "Testing with Undefined Behaviour sanitizer")
             set(SANITIZER_UB_FLAG "-fsanitize=undefined")
            
             if(EXISTS "${BLACKLIST_FILE}")
@@ -85,7 +82,6 @@ if(USE_SANITIZER)
         endif()
 
         if(USE_SANITIZER MATCHES "([Tt]hread)")
-            message(STATUS "Testing with Thread sanitizer")
             set(SANITIZER_THREAD_FLAG "-fsanitize=thread")
             test_san_flags(SANITIZER_THREAD_AVAILABLE ${SANITIZER_THREAD_FLAG})
        
@@ -98,7 +94,6 @@ if(USE_SANITIZER)
         endif()
 
         if(USE_SANITIZER MATCHES "([Ll]eak)")
-            message(STATUS "Testing with Leak sanitizer")
             set(SANITIZER_LEAK_FLAG "-fsanitize=leak")
             test_san_flags(SANITIZER_LEAK_AVAILABLE ${SANITIZER_LEAK_FLAG})
        
@@ -111,7 +106,6 @@ if(USE_SANITIZER)
         endif()
 
         if(USE_SANITIZER MATCHES "([Cc][Ff][Ii])")
-            message(STATUS "Testing with Control Flow Integrity(CFI) sanitizer")
             set(SANITIZER_CFI_FLAG "-fsanitize=cfi")
             test_san_flags(SANITIZER_CFI_AVAILABLE ${SANITIZER_CFI_FLAG})
        

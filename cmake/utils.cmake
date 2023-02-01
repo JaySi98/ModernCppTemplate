@@ -1,6 +1,6 @@
-# Add a target for formating the project using `clang-format`
+# List of clang-format options:
+# https://clang.llvm.org/docs/ClangFormat.html
 function(add_clang_format_target)
-# if(ENABLE_CLANG_FORMAT)
     if(NOT CLANG_FORMAT)
         find_program(CLANG_FORMAT clang-format)
     endif()
@@ -25,10 +25,7 @@ function(add_clang_format_target)
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
             )
         endif()
-
-        message(STATUS "Format the project using  'cmake --build build --target clang-format' \n")
     endif()
-# endif()
 endfunction()
 
 # List of clang-tidy options:
@@ -39,8 +36,8 @@ if(ENABLE_CLANG_TIDY)
 			set(CMAKE_CXX_CLANG_TIDY ${CLANGTIDY} 
 				# -extra-arg=-Wno-unknown-warning-option
 			)
-		message("Clang-Tidy finished setting up.")
+		message("Clang-Tidy has been setup.\n")
 	else()
-		message(SEND_ERROR "Clang-Tidy requested but executable not found.")
+		message(SEND_ERROR "Clang-Tidy requested but executable not found.\n")
 	endif()
 endif()

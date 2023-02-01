@@ -61,7 +61,7 @@ function(set_project_warnings project_name)
     if (WARNINGS_AS_ERRORS)
         set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
         set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
-        message(STATUS "WARNINGS_AS_ERRORS set")
+        message(STATUS "WARNINGS_AS_ERRORS set.\n")
     endif()
 
     set(GCC_WARNINGS
@@ -82,7 +82,7 @@ function(set_project_warnings project_name)
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         set(PROJECT_WARNINGS ${GCC_WARNINGS})
     else()
-        message(AUTHOR_WARNING "No compiler warnings set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
+        message(AUTHOR_WARNING "No compiler warnings set for '${CMAKE_CXX_COMPILER_ID}' compiler\n.")
     endif()
 
     # allows to use same _DEBUG macro in Linux and Windows - MSCV environment.
@@ -97,6 +97,6 @@ function(set_project_warnings project_name)
     endif()
 
     if(NOT TARGET ${PROJECT_NAME})
-        message(AUTHOR_WARNING "${PROJECT_NAME} is not a target, thus no compiler warning were added.")
+        message(AUTHOR_WARNING "${PROJECT_NAME} is not a target, thus no compiler warning were added\n.")
     endif()
 endfunction()
