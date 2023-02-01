@@ -21,6 +21,7 @@ include(cmake/compiler.cmake)
 include(cmake/settings.cmake)
 include(cmake/utils.cmake)
 include(cmake/sources.cmake)
+include(cmake/sanitizers.cmake)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")

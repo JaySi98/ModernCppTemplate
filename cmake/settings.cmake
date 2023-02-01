@@ -17,6 +17,8 @@ option(ENABLE_UNIT_TESTING  "Enable unit tests for the projects (from the `test`
 option(ENABLE_CLANG_TIDY    "Enable static analysis with Clang-Tidy."   OFF)
 option(ENABLE_CLANG_FORMAT  "Enable code foramtting with Clang-Format." OFF)
 
+# Sanitizers options
+set(USE_SANITIZER "" CACHE STRING "Address, Memory, MemoryWithOrigins, Undefined, Thread, Leak, CFI")
 # Code coverage options
 option(ENABLE_CODE_COVERAGE "Enable code coverage through GCC."       ON)
 

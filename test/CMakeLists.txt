@@ -26,18 +26,18 @@ target_link_libraries(
 gtest_discover_tests(UnitTests)
 
 # Setup code coverage if enabled
-if (ENABLE_CODE_COVERAGE)
-	target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC 
-		-O0 
-		-g 
-		-fprofile-arcs 
-		-ftest-coverage
-	)
-	target_link_options(${CMAKE_PROJECT_NAME} PUBLIC 
-		-fprofile-arcs 
-		-ftest-coverage
-	)
-	message(STATUS "Code coverage is enabled and provided with GCC.")
-endif()
+# if (ENABLE_CODE_COVERAGE)
+# 	target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC 
+# 		-O0 
+# 		-g 
+# 		-fprofile-arcs 
+# 		-ftest-coverage
+# 	)
+# 	target_link_options(${CMAKE_PROJECT_NAME} PUBLIC 
+# 		-fprofile-arcs 
+# 		-ftest-coverage
+# 	)
+# 	message(STATUS "Code coverage is enabled and provided with GCC.")
+# endif()
 
 message(STATUS "Finished adding unit tests for ${CMAKE_PROJECT_NAME}.")
