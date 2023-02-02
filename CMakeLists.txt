@@ -21,7 +21,7 @@ include(cmake/settings.cmake)
 include(cmake/utils.cmake)
 include(cmake/sources.cmake)
 include(cmake/sanitizers.cmake)
-include(cmake/code-coverage.cmake)
+# include(cmake/code-coverage.cmake) # todo
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")

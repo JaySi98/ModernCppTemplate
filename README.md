@@ -42,17 +42,12 @@ cmake .. -DENABLE_DOXYGEN=1
 cmake --build . --target doxygen-docs
 xdg-open docs/html/index.html 
 5. run tests
-build
 ./build/test/UnitTests
 cd build && ctest -C -VV Debug
 6. format code
 cmake --build build/ --target clang-format
 
 ## TODO
-* add tools directory
-* set readme
-
-For later:
 * add cpm 
 * add dependency graph and code coverage as a part of documentation
 * add popular libs as optional 
