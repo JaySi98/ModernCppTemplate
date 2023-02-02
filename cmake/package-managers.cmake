@@ -35,3 +35,14 @@ if(ENABLE_CONAN)
 
 	message(STATUS "Conan has been setup.\n")
 endif()
+
+if(ENABLE_VCPKG)  
+	if(NOT EXISTS "${CMAKE_BINARY_DIR}/vcpkg.cmake")
+		file(DOWNLOAD "https://github.com/microsoft/vcpkg/raw/master/scripts/buildsystems/vcpkg.cmake"
+		"${CMAKE_BINARY_DIR}/vcpkg.cmake")
+		message(STATUS "Vcpkg config downloaded succesfully.\n")
+	endif()
+
+	set(VCPKG_VERBOSE ON)
+	set(CMAKE_TOOLCHAIN_FILE "${CMAKE_TOOLCHAIN_FILE}" "${CMAKE_BINARY_DIR}/vcpkg.cmake")
+endif()

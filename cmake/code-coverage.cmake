@@ -1,8 +1,3 @@
-option(
-  CODE_COVERAGE
-  "Builds targets with code coverage instrumentation. (Requires GCC or Clang)"
-  OFF)
-
 # Programs
 find_program(LLVM_COV_PATH llvm-cov)
 find_program(LLVM_PROFDATA_PATH llvm-profdata)

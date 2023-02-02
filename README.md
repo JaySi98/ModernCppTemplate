@@ -24,7 +24,7 @@ https://stackoverflow.com/questions/49736336/cmake-is-unable-to-find-packages-of
 
 * clang-tidy
 * clang-format
-* cppcheck
+* lcov
 ## Getting Started 
 
 ## Commands 
@@ -47,17 +47,14 @@ build
 cd build && ctest -C -VV Debug
 6. format code
 cmake --build build/ --target clang-format
-7. dependency graph
-cmake --build build --target graph
 
 ## TODO
-* correct codecoverage
-* add dependency graph as a part of doxygen
 * add tools directory
 * set readme
-* add cpm 
 
 For later:
+* add cpm 
+* add dependency graph and code coverage as a part of documentation
 * add popular libs as optional 
 * add version for ansi C 
 * add version for QT 

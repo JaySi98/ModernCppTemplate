@@ -14,9 +14,8 @@ endif()
 # ===========================
 # Project options
 # ===========================
-include(cmake/conan.cmake)
+include(cmake/package-managers.cmake)
 include(cmake/doxygen.cmake)
-include(cmake/vcpkg.cmake)
 include(cmake/compiler.cmake)
 include(cmake/settings.cmake)
 include(cmake/utils.cmake)
