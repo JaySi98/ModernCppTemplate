@@ -213,10 +213,10 @@ endif()
 # ===========================
 # Code coverage
 # ===========================
-if(ENABLE_CODE_COVERAGE)
-    add_code_coverage_all_targets(EXCLUDE test/*) 
-    target_code_coverage(${PROJECT_NAME})
-endif()
+# if(ENABLE_CODE_COVERAGE)
+#     add_code_coverage_all_targets(EXCLUDE test/*) 
+#     target_code_coverage(${PROJECT_NAME})
+# endif()
 
 # ===========================
 # Installation
