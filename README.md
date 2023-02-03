@@ -21,12 +21,12 @@ This template is mostly a combination of projects listed below:
 
 ## Requirements 
 In order to be able to use this template, you must have installed: 
-* CMake - version 3.15 and above 
-* C++ Compiler - must support C++ 17 standard 
-* Doxygen - for ability to generate docs
-* GoogleTest
-* Clang-Tidy
-* Clang-Format
+* **CMake** - version 3.15 and above 
+* **C++ Compiler** - must support C++ 17 standard 
+* **Doxygen** - for ability to generate docs
+* **GoogleTest** - for unit testing
+* **Clang-Tidy** - supported static analizer 
+* **Clang-Format** - for code formatting
 
 # Getting Started 
 1. Change project name in CmakeLists.txt
@@ -36,18 +36,36 @@ In order to be able to use this template, you must have installed:
 5. Compile, build and run
 
 ## Available targets
-<project-name> - to build project
-install - to install project
-doxygen-docs - to generate documentation
-clang-format - to format code
+* **\<project-name\>** - to build project
+* **install** - to install project
+* **doxygen-docs** - to generate documentation
+* **clang-format** - to format code
 
 ## usefull commands
-* xdg-open docs/html/index.html
-* cmake --build <build_directory> --target install --config <desired_config> 
-* ./build/test/UnitTests
-* cd build && ctest -C -VV Debug
-* sudo xargs rm < build/install_manifest.txt 
+* opening documentation
+```
+xdg-open docs/html/index.html
+```
 
+* installing project
+```
+cmake --build <build_directory> --target install --config <desired_config> 
+```
+
+
+* uninstalling project
+```
+sudo xargs rm < build/install_manifest.txt 
+```
+
+* running unit tests(two options)
+```
+./build/test/UnitTests
+```
+
+```
+cd build && ctest -C -VV Debug
+```
 ## TODO
 * add cpm 
 * add dependency graph and code coverage as a part of documentation
