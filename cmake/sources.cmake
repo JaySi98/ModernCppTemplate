@@ -1,18 +1,16 @@
 set(HEADERS
-    include/tmp/tmp.hpp
+    include/tmp/tmp.h
 )
 
 set(SOURCES
-    src/tmp/tmp.cpp
+    src/tmp/tmp.c
 )
 
 set(EXE_SOURCES
-    src/main.cpp
+    src/main.c
     ${SOURCES}
 )
 
 # inside test directory
 set(TEST_SOURCES
-    mainTest.cpp
-    tmpTest.cpp
 )

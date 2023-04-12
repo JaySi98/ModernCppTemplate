@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(
     "Template" 
     VERSION 0.1.0 
-    LANGUAGES CXX
+    LANGUAGES C
 )
 
 # Prevention from building in the source directory
@@ -21,26 +21,14 @@ include(cmake/settings.cmake)
 include(cmake/utils.cmake)
 include(cmake/sources.cmake)
 include(cmake/sanitizers.cmake)
-# include(cmake/code-coverage.cmake) # todo
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")
 endif()
 message(STATUS "Started CMake for ${PROJECT_NAME} v${PROJECT_VERSION}...\n")
 
-# Set the compiler standard to C++17
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-if(MSVC_VERSION GREATER_EQUAL "1900" AND CMAKE_VERSION LESS 3.10)
-    include(CheckCXXCompilerFlag)
-    check_cxx_compiler_flag("/std:c++17" _cpp_latest_flag_supported)
-    if(_cpp_latest_flag_supported)
-        add_compile_options("/std:c++17")
-    endif()
-endif()
-
+# Set the compiler options
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 
 # ===========================
 # adding exec/lib
@@ -61,14 +49,6 @@ if(BUILD_EXECUTABLE)
             message(STATUS "* ${HEADER}")
         endforeach()
     endif()
-
-elseif(BUILD_HEADERS_ONLY)
-    add_library(${PROJECT_NAME} INTERFACE)
-
-    message(STATUS "Found the following headers:")
-    foreach(HEADER IN LIST HEADERS)
-        message(STATUS "* ${HEADER}")
-    endforeach()
 
 else()
     add_library(${PROJECT_NAME} ${HEADERS} ${SOURCES})
@@ -111,19 +91,9 @@ message(STATUS "Added all header and implementation files.\n")
 # ===========================
 # Project standard and warnings
 # ===========================
-
-if(BUILD_HEADERS_ONLY)
-    target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
-else()
-    target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
-
-    if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
-        target_compile_features(${PROJECT_NAME}_LIB PUBLIC cxx_std_17)
-    endif()
-endif()
 set_project_warnings(${PROJECT_NAME})
 
-message(STATUS "Applied compiler warnings. Using standard C++${CMAKE_CXX_STANDARD}.\n")
+message(STATUS "Applied compiler warnings. Using standard C${CMAKE_C_STANDARD}.\n")
 
 # ===========================
 # Project dependencies
@@ -158,35 +128,24 @@ message(STATUS "Successfully added all dependencies and linked against them.\n")
 # ===========================
 # Set the build/user include directories
 # ===========================
+target_include_directories(
+    ${PROJECT_NAME}
+    PUBLIC
+    $<INSTALL_INTERFACE:include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
-# Allow usage of header files in the `src` directory, but only for utilities
-if(BUILD_HEADERS_ONLY)
+if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
     target_include_directories(
-        ${PROJECT_NAME}
-        INTERFACE
-        $<INSTALL_INTERFACE:include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    )
-else()
-    target_include_directories(
-        ${PROJECT_NAME}
+        ${PROJECT_NAME}_LIB
         PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
     )
-
-    if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
-        target_include_directories(
-            ${PROJECT_NAME}_LIB
-            PUBLIC
-            $<INSTALL_INTERFACE:include>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-            PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/src
-        )
-    endif()
 endif()
 
 message(STATUS "Finished setting up include directories.\n")
@@ -253,14 +212,14 @@ install(
 
 # Add version header
 configure_file(
-    ${CMAKE_CURRENT_LIST_DIR}/cmake/version.hpp.in
-    include/${PROJECT_NAME_LOWERCASE}/version.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/version.h.in
+    include/${PROJECT_NAME_LOWERCASE}/version.h
     @ONLY
 )
 
 install(
     FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME_LOWERCASE}/version.hpp
+    ${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME_LOWERCASE}/version.h
     DESTINATION
     include/${PROJECT_NAME_LOWERCASE}
 )
