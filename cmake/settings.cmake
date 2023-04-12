@@ -3,7 +3,7 @@
 option(BUILD_EXECUTABLE     "Build the project as an executable."             OFF)
 
 # Unit testing using GoogleTest and GoogleMock
-option(ENABLE_UNIT_TESTING  "Enable unit tests for the projects."             OFF)
+option(ENABLE_UNIT_TESTING  "Enable unit tests for the projects."             ON)
 
 # Doxygen
 option(ENABLE_DOXYGEN       "Enable Doxygen documentation builds of source."  OFF)

@@ -16,12 +16,9 @@ This project is mostly a combination of other templates listed below:
 ## Requirements 
 In order to be able to work with this template, you will need: 
 * CMake - version 3.15 and above 
-* C++ Compiler - must support C++ 17 standard 
+* C Compiler 
 * Doxygen - for ability to generate docs
 sudo apt-get install doxygen doxygen-doc graphviz 
-* googleTest
-https://stackoverflow.com/questions/49736336/cmake-is-unable-to-find-packages-of-gmock
-
 * clang-tidy
 * clang-format
 * lcov
@@ -46,12 +43,3 @@ xdg-open docs/html/index.html
 cd build && ctest -C -VV Debug
 6. format code
 cmake --build build/ --target clang-format
-
-## TODO
-* add cpm 
-* add dependency graph and code coverage as a part of documentation
-* add popular libs as optional 
-* add version for ansi C 
-* add version for QT 
-* add version for STM 
-* add version for rpi pico
