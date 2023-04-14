@@ -22,6 +22,7 @@ sudo apt-get install doxygen doxygen-doc graphviz
 * clang-tidy
 * clang-format
 * lcov
+* cmocka test framework
 ## Getting Started 
 
 ## Commands 

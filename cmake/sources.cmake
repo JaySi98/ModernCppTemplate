@@ -13,4 +13,7 @@ set(EXE_SOURCES
 
 # inside test directory
 set(TEST_SOURCES
+    mainTest.c
+    tmpTest.h
+    tmpTest.c
 )
