@@ -8,7 +8,7 @@ function(add_clang_format_target)
     if(CLANG_FORMAT)
         add_custom_target(clang-format
             COMMAND ${CLANG_FORMAT}
-            -i ${EXE_SOURCES} ${HEADERS}
+            -i ${SOURCES} ${HEADERS}
             WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
         )
     endif()

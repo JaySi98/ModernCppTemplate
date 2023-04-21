@@ -2,12 +2,25 @@ set(HEADERS
 )
 
 set(SOURCES
+    src/main.c
 )
 
-set(EXE_SOURCES
-    src/main.c
-    ${SOURCES}
+# STM files
+set(STM32CUBEMX_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Core/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/*.c
 )
+
+set(CUBEMX_INCLUDE_DIRECTORIES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/${MCU_FAMILY}_HAL_Driver/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/${MCU_FAMILY}_HAL_Driver/Inc/Legacy
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/${MCU_FAMILY}/Include
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Include
+)
+
+set(STARTUP_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/CubeMX/startup_stm32f407xx.s)
+set(MCU_LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/CubeMX/STM32F407VGTx_FLASH.ld)
 
 # inside test directory
 set(TEST_SOURCES
