@@ -21,8 +21,8 @@ In order to be able to work with this template, you will need:
 sudo apt-get install doxygen doxygen-doc graphviz 
 * clang-tidy
 * clang-format
-* lcov
 * cmocka test framework
+
 ## Getting Started 
 
 ## Commands 
@@ -31,7 +31,7 @@ how to:
 cmake -S . -B build/ 
 cmake --build <build_directory> --target install --config <desired_config> 
 2. build 
-cmake -S . -B build/ -DBUILD_EXECUTABLE=ON 
+cmake -S . -B build/ 
 cmake --build build 
 3. remove installed 
 sudo xargs rm < build/install_manifest.txt 

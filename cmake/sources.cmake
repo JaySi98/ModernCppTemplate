@@ -1,9 +1,7 @@
 set(HEADERS
-    include/tmp/tmp.h
 )
 
 set(SOURCES
-    src/tmp/tmp.c
 )
 
 set(EXE_SOURCES
@@ -14,6 +12,4 @@ set(EXE_SOURCES
 # inside test directory
 set(TEST_SOURCES
     mainTest.c
-    tmpTest.h
-    tmpTest.c
 )
