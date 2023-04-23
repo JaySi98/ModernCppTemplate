@@ -13,24 +13,27 @@ endif()
 # ===========================
 # Project options
 # ===========================
-include(cmake/package-managers.cmake)
-include(cmake/doxygen.cmake)
-include(cmake/compiler.cmake)
-include(cmake/settings.cmake)
-include(cmake/utils.cmake)
-include(cmake/sources.cmake)
-include(cmake/sanitizers.cmake)
+# include(cmake/package-managers.cmake)
+# include(cmake/doxygen.cmake)
+# include(cmake/compiler.cmake)
+# include(cmake/settings.cmake)
+# include(cmake/utils.cmake)
+# include(cmake/sources.cmake)
+# include(cmake/sanitizers.cmake)
 
 message(STATUS "Started CMake for ${PROJECT_NAME} v${PROJECT_VERSION}...\n")
 
 # MCU settings - potential changes here
 set(MCU_FAMILY STM32F4xx)
-set(MCU_MODEL STM32F411xx)
+set(MCU_MODEL STM32F411xE)
 set(CPU_PARAMETERS
     -mcpu=cortex-m4
     -mthumb
     -mfpu=fpv4-sp-d16
     -mfloat-abi=hard)
+
+set(STARTUP_SCRIPT      ${CMAKE_CURRENT_SOURCE_DIR}/Core/Startup/startup_stm32f411retx.s)
+set(MCU_LINKER_SCRIPT   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Startup/STM32F411RETX_FLASH.ld) 
 
 # Set the compiler options
 enable_language(C CXX ASM)
@@ -44,31 +47,69 @@ set(CMAKE_CXX_EXTENSIONS ON)
 # ===========================
 # adding exec/lib
 # ===========================
+file(GLOB_RECURSE STM32CUBEMX_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Core/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/*.c)
+file(GLOB_RECURSE PROJECT_SOURCES FOLLOW_SYMLINKS
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
+
+set(CUBEMX_INCLUDE_DIRECTORIES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/${MCU_FAMILY}_HAL_Driver/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/${MCU_FAMILY}_HAL_Driver/Inc/Legacy
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/${MCU_FAMILY}/Include
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Include
+)
+
 add_executable(${PROJECT_NAME} 
-    ${SOURCES}
+    ${STM32CUBEMX_SOURCES} 
+    ${PROJECT_SOURCES}
     ${STARTUP_SCRIPT}
 )
 
-if(ENABLE_UNIT_TESTING)
-    add_library(${PROJECT_NAME}_LIB ${HEADERS} ${SOURCES})
-endif()
+# if(ENABLE_UNIT_TESTING)
+#     add_library(${PROJECT_NAME}_LIB ${HEADERS} ${SOURCES})
+# endif()
 
 # ===========================
 # Project properties
 # ===========================
 
-set_target_properties(
-  ${PROJECT_NAME}
-  PROPERTIES
-  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}"
-)
+# set_target_properties(
+#   ${PROJECT_NAME}
+#   PROPERTIES
+#   ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+#   LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+#   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}"
+# )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     ${MCU_MODEL}
     USE_HAL_DRIVER
 )
+
+target_include_directories(
+    ${PROJECT_NAME}
+    PUBLIC
+    $<INSTALL_INTERFACE:include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CUBEMX_INCLUDE_DIRECTORIES}
+)
+
+# if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
+#     target_include_directories(
+#         ${PROJECT_NAME}_LIB
+#         PUBLIC
+#         $<INSTALL_INTERFACE:include>
+#         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#         PRIVATE
+#         ${CMAKE_CURRENT_SOURCE_DIR}/src
+#         ${CUBEMX_INCLUDE_DIRECTORIES}
+#     )
+# endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE
     ${CPU_PARAMETERS}
@@ -94,22 +135,22 @@ target_link_options(${PROJECT_NAME} PRIVATE
     -Wl,--print-memory-usage
 )
 
-if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
-    set_target_properties(
-        ${PROJECT_NAME}_LIB
-        PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-        OUTPUT_NAME ${PROJECT_NAME}
-    )
-endif()
+# if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
+#     set_target_properties(
+#         ${PROJECT_NAME}_LIB
+#         PROPERTIES
+#         ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+#         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+#         OUTPUT_NAME ${PROJECT_NAME}
+#     )
+# endif()
 
 message(STATUS "Added all header and implementation files.\n")
 
 # ===========================
 # Project standard and warnings
 # ===========================
-set_project_warnings(${PROJECT_NAME})
+# set_project_warnings(${PROJECT_NAME})
 
 message(STATUS "Applied compiler warnings. Using standard C${CMAKE_C_STANDARD}.\n")
 
@@ -139,34 +180,6 @@ message(STATUS "Applied compiler warnings. Using standard C${CMAKE_C_STANDARD}.\
 
 message(STATUS "Successfully added all dependencies and linked against them.\n")
 
-
-# ===========================
-# Set the build/user include directories
-# ===========================
-target_include_directories(
-    ${PROJECT_NAME}
-    PUBLIC
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CUBEMX_INCLUDE_DIRECTORIES}
-)
-
-if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
-    target_include_directories(
-        ${PROJECT_NAME}_LIB
-        PUBLIC
-        $<INSTALL_INTERFACE:include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
-        ${CUBEMX_INCLUDE_DIRECTORIES}
-    )
-endif()
-
-message(STATUS "Finished setting up include directories.\n")
-
 # ===========================
 # Custom commands 
 # ===========================
@@ -182,14 +195,14 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 # ===========================
 # Format the project using the `clang-format` target 
 # ===========================
-if(ENABLE_CLANG_FORMAT)
-    add_clang_format_target()
-endif()
+# if(ENABLE_CLANG_FORMAT)
+#     add_clang_format_target()
+# endif()
 
 # ===========================
 # Unit testing
 # ===========================
-if(ENABLE_UNIT_TESTING)
-    enable_testing()
-    add_subdirectory(test)
-endif()
+# if(ENABLE_UNIT_TESTING)
+#     enable_testing()
+#     add_subdirectory(test)
+# endif()
