@@ -33,7 +33,6 @@ set(CPU_PARAMETERS
     -mfloat-abi=hard)
 
 # Set the compiler options
-set(EXECUTABLE ${CMAKE_PROJECT_NAME})
 enable_language(C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -46,8 +45,7 @@ set(CMAKE_CXX_EXTENSIONS ON)
 # adding exec/lib
 # ===========================
 add_executable(${PROJECT_NAME} 
-    ${SOURCES} 
-    ${STM32CUBEMX_SOURCES}
+    ${SOURCES}
     ${STARTUP_SCRIPT}
 )
 
