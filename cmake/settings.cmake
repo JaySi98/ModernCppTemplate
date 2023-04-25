@@ -4,10 +4,6 @@ option(ENABLE_UNIT_TESTING  "Enable unit tests for the projects."             OF
 # Doxygen
 option(ENABLE_DOXYGEN       "Enable Doxygen documentation builds of source."  OFF)
 
-# Clang-Tidy and Clang-Format
-option(ENABLE_CLANG_TIDY    "Enable static analysis with Clang-Tidy."         OFF)
-option(ENABLE_CLANG_FORMAT  "Enable code foramtting with Clang-Format."       OFF)
-
 # Compiler options
 option(WARNINGS_AS_ERRORS   "Treat compiler warnings as errors."              OFF)
 
