@@ -18,7 +18,6 @@ sudo apt-get install doxygen doxygen-doc graphviz
 
 ## Getting Started 
 1. Change project name in CmakeLists.txt
-2. If used on different MCU: change all files inside cubeMX folder by files and add appropiate changes inside cmake/sources.cmake
 3. Add new header and source files to cmake/sources.cmake
 4. Compile, build and run
 

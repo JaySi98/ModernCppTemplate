@@ -35,9 +35,7 @@ set(CMAKE_CXX_EXTENSIONS ON)
 # adding exec/lib
 # ===========================
 add_executable(${PROJECT_NAME}  
-    ${STM32CUBEMX_SOURCES}
     ${SOURCES}
-    ${STARTUP_SCRIPT}
 )
 
 if(ENABLE_UNIT_TESTING)
@@ -47,10 +45,6 @@ endif()
 # ===========================
 # Project properties
 # ===========================
-target_compile_definitions(${PROJECT_NAME} PRIVATE
-    ${MCU_MODEL}
-    USE_HAL_DRIVER
-)
 
 target_include_directories(
     ${PROJECT_NAME}
@@ -59,7 +53,6 @@ target_include_directories(
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CUBEMX_INCLUDE_DIRECTORIES}
 )
 
 if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
@@ -70,28 +63,27 @@ if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
-        ${CUBEMX_INCLUDE_DIRECTORIES}
     )
 endif()
 
-target_compile_options(${PROJECT_NAME} PRIVATE
-    ${CPU_PARAMETERS}
-    $<$<CONFIG:Debug>:-Og -g3 -ggdb>
-    $<$<CONFIG:Release>:-Og -g0>
-)
+# target_compile_options(${PROJECT_NAME} PRIVATE
+#     ${CPU_PARAMETERS}
+#     $<$<CONFIG:Debug>:-Og -g3 -ggdb>
+#     $<$<CONFIG:Release>:-Og -g0>
+# )
 
-target_link_options(${PROJECT_NAME} PRIVATE
-    -T${MCU_LINKER_SCRIPT}
-    ${CPU_PARAMETERS}
-    -Wl,-Map=${CMAKE_PROJECT_NAME}.map
-    --specs=nosys.specs
-    -Wl,--start-group
-    -lc
-    -lm
-    -lstdc++
-    -Wl,--end-group
-    -Wl,--print-memory-usage
-)
+# target_link_options(${PROJECT_NAME} PRIVATE
+#     -T${MCU_LINKER_SCRIPT}
+#     ${CPU_PARAMETERS}
+#     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
+#     --specs=nosys.specs
+#     -Wl,--start-group
+#     -lc
+#     -lm
+#     -lstdc++
+#     -Wl,--end-group
+#     -Wl,--print-memory-usage
+# )
 
 if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
     set_target_properties(
@@ -141,14 +133,14 @@ message(STATUS "Successfully added all dependencies and linked against them.\n")
 # ===========================
 # Custom commands 
 # ===========================
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${PROJECT_NAME}>)
+# add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#     COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${PROJECT_NAME}>)
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${PROJECT_NAME}>
-    ${PROJECT_NAME}.hex
-    COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${PROJECT_NAME}>
-    ${PROJECT_NAME}.bin)
+# add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${PROJECT_NAME}>
+#     ${PROJECT_NAME}.hex
+#     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${PROJECT_NAME}>
+#     ${PROJECT_NAME}.bin)
 
 # ===========================
 # Format the project using the `clang-format` target 
