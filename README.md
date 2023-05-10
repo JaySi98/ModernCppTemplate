@@ -34,3 +34,9 @@ xdg-open docs/html/index.html
 5. run tests
 ./build/test/UnitTests
 cd build && ctest -C -VV Debug
+6. upload to board
+st-flash write build/Template.bin 0x8000000
+7. probe board
+    st-info --probe
+8. read binary from board
+    st-flash read dummy.bin 0 0xFFFF
