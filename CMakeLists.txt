@@ -1,10 +1,5 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
-project(
-    "Template" 
-    VERSION 0.1.0 
-)
-
 # Prevention from building in the source directory
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
   message(FATAL_ERROR "In-source builds not allowed. Please make a build directory and run CMake from there.\n")
@@ -13,6 +8,7 @@ endif()
 # ===========================
 # Project options
 # ===========================
+include(cmake/pico_sdk_import.cmake)
 include(cmake/package-managers.cmake)
 include(cmake/doxygen.cmake)
 include(cmake/compiler.cmake)
@@ -21,6 +17,11 @@ include(cmake/sources.cmake)
 include(cmake/sanitizers.cmake)
 
 message(STATUS "Started CMake for ${PROJECT_NAME} v${PROJECT_VERSION}...\n")
+
+project(
+    "Template" 
+    VERSION 0.1.0 
+)
 
 # Set the compiler options
 enable_language(C CXX ASM)
@@ -31,9 +32,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
+set(PICO_EXAMPLES_PATH ${PROJECT_SOURCE_DIR})
+
 # ===========================
 # adding exec/lib
 # ===========================
+pico_sdk_init()
 add_executable(${PROJECT_NAME}  
     ${SOURCES}
 )
@@ -45,7 +49,6 @@ endif()
 # ===========================
 # Project properties
 # ===========================
-
 target_include_directories(
     ${PROJECT_NAME}
     PUBLIC
@@ -65,25 +68,6 @@ if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
         ${CMAKE_CURRENT_SOURCE_DIR}/src
     )
 endif()
-
-# target_compile_options(${PROJECT_NAME} PRIVATE
-#     ${CPU_PARAMETERS}
-#     $<$<CONFIG:Debug>:-Og -g3 -ggdb>
-#     $<$<CONFIG:Release>:-Og -g0>
-# )
-
-# target_link_options(${PROJECT_NAME} PRIVATE
-#     -T${MCU_LINKER_SCRIPT}
-#     ${CPU_PARAMETERS}
-#     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
-#     --specs=nosys.specs
-#     -Wl,--start-group
-#     -lc
-#     -lm
-#     -lstdc++
-#     -Wl,--end-group
-#     -Wl,--print-memory-usage
-# )
 
 if(BUILD_EXECUTABLE AND ENABLE_UNIT_TESTING)
     set_target_properties(
@@ -107,7 +91,6 @@ message(STATUS "Applied compiler warnings. Using standard C${CMAKE_C_STANDARD}.\
 # ===========================
 # Project dependencies
 # ===========================
-
 # find_package(package_name package_version REQUIRED package_type [other_options])
 #target_link_libraries(
 #  ${PROJECT_NAME}
@@ -127,6 +110,8 @@ message(STATUS "Applied compiler warnings. Using standard C${CMAKE_C_STANDARD}.\
 #  )
 #endif()
 
+target_link_libraries(${PROJECT_NAME} pico_stdlib)
+pico_add_extra_outputs(${PROJECT_NAME})
 
 message(STATUS "Successfully added all dependencies and linked against them.\n")
 
