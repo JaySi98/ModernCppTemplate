@@ -21,7 +21,15 @@ sudo apt-get install doxygen doxygen-doc graphviz
 3. Add new header and source files to cmake/sources.cmake
 4. Compile, build and run
 
-## Commands 
+## Commands
+
+required on every start
+export PICO_SDK_PATH=~/Installed/pico-sdk/
+
+Sprobowac ponownie z 
+- przeniesc cmake/99-pico.rules do /etc/udev/rules.d/
+- sudo udevadm control --reload-rules
+
 how to: 
 2. build 
 cmake -S . -B build/ 
@@ -33,3 +41,5 @@ xdg-open docs/html/index.html
 5. run tests
 ./build/test/UnitTests
 cd build && ctest -C -VV Debug
+
+
